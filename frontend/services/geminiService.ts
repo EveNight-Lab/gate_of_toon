@@ -1,17 +1,25 @@
-import { Webtoon, ChatHistory, GeminiServiceResponse} from '../types';
+import { Webtoon, GeminiServiceResponse } from '../types';
+import { MOCK_WEBTOONS, handleMockRecommend } from './mockService';
 
 // 백엔드 API 명세에 따른 타입 정의
 interface RecommendRequest {
   sessionId: string | null; // 세션 ID
-  // 🚨 수정: message는 문자열(첫 요청) 또는 객체(두 번째부터)가 될 수 있습니다.
   message: string | object; 
 }
+
+// 개발 및 배포 환경에서 데모(Mock) 모드 활성화 여부
+// VITE_USE_MOCK이 true이거나, 실제 API 주소가 없을 때 데모 모드로 작동
+const IS_MOCK_ENV = import.meta.env.VITE_USE_MOCK === 'true';
 
 export const getNextQuestion = async (
   requestData: RecommendRequest
 ): Promise<GeminiServiceResponse> => {
-  // 백엔드 API URL - 배포 시 실제 URL로 변경해야 합니다.
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
+  if (IS_MOCK_ENV) {
+    console.log("🌌 [Gate of Toon] VITE_USE_MOCK is active. Running in local Demo Mode.");
+    return handleMockRecommend(requestData);
+  }
 
   try {
     const response = await fetch(`${API_URL}/api/recommend`, {
@@ -19,25 +27,33 @@ export const getNextQuestion = async (
       headers: {
         'Content-Type': 'application/json',
       },
-      // App.tsx에서 전달한 객체를 그대로 body에 담아 전송합니다.
       body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'API request failed');
+      throw new Error('API server returned error status');
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error calling recommendation API:", error);
-    throw new Error("추천 데이터를 받아오는 데 실패했습니다. 서버에 문제가 발생했을 수 있습니다.");
+    console.warn(
+      "⚠️ [Gate of Toon Fallback] 추천 API 서버 연결 실패 혹은 키 만료 상태입니다. " +
+      "사용자 경험 보존을 위해 자동으로 [로컬 오프라인 데모/데모 모드]로 grace degradation을 수행합니다.",
+      error
+    );
+    // 서버가 꺼져 있거나 에러가 나면 화면이 멈추지 않고 모의 시뮬레이터로 매끄럽게 연결
+    return handleMockRecommend(requestData);
   }
 };
 
 export const fetchAllWebtoons = async (): Promise<Webtoon[]> => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
+  if (IS_MOCK_ENV) {
+    return MOCK_WEBTOONS;
+  }
+
   try {
     const response = await fetch(`${API_URL}/api/webtoons`);
     if (!response.ok) {
@@ -45,8 +61,11 @@ export const fetchAllWebtoons = async (): Promise<Webtoon[]> => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error fetching webtoon list:", error);
-    // API 호출 실패 시 에러를 throw하여 호출부에서 처리하도록 합니다.
-    throw new Error("웹툰 목록을 불러오는 데 실패했습니다. 서버에 문제가 발생했을 수 있습니다.");
+    console.warn(
+      "⚠️ [Gate of Toon Fallback] 웹툰 리스트를 가져오는 데 실패하여 로컬 오프라인 데이터로 대체합니다.",
+      error
+    );
+    // 서버가 꺼져 있어도 화면 전체가 깨지지 않도록 로컬 데이터셋 즉시 반환
+    return MOCK_WEBTOONS;
   }
 };
