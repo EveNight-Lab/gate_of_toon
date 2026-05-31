@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 🚨 수정: 미니 로고를 파비콘으로 설정합니다. -->
+    <link rel="icon" type="image/png" href="/logo-mini.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI 웹툰 추천 서비스, 게이트 오브 툰. 간단한 질문으로 당신의 취향을 분석하여 인생 웹툰을 찾아드립니다." />
+    
+    <!-- 🚨 추가: 소셜 미디어 공유를 위한 Open Graph 메타 태그 -->
+    <meta property="og:title" content="게이트 오브 툰: AI 웹툰 추천" />
+    <meta property="og:description" content="AI와의 대화로 당신의 취향을 분석하여 인생 웹툰을 찾아보세요!" />
+    <meta property="og:image" content="/thumbnail.png" />
+    <meta property="og:url" content="https://gate-of-toon.web.app/" />
+    <meta property="og:type" content="website" />
+
+    <title>Gate of Toon: Interactive Webtoon Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        /* 🚨 수정: 한글 단어가 중간에 잘리는 것을 방지합니다. */
+        word-break: keep-all;
+        background-color: #030712; /* A darker gray */
+      }
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+      
+      /* 🚨 수정: 밝은 테마를 위해 상태창 배경 및 내부 요소 색상 변경 */
+      .status-window {
+        background: linear-gradient(145deg, rgba(34, 211, 238, 0.85) 0%, rgba(59, 130, 246, 0.85) 100%); /* cyan-400 to blue-500 */
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        box-shadow: 0 0 15px rgba(14, 165, 233, 0.4), inset 0 0 15px rgba(14, 165, 233, 0.2);
+        backdrop-filter: blur(8px);
+        position: relative;
+        padding: 2px;
+      }
+      .status-window::before,
+      .status-window::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-color: white;
+        border-style: solid;
+      }
+      .status-window::before {
+        top: -2px;
+        left: -2px;
+        border-width: 3px 0 0 3px;
+      }
+      .status-window::after {
+        top: -2px;
+        right: -2px;
+        border-width: 3px 3px 0 0;
+      }
+      .status-window-content {
+        position: relative;
+      }
+      .status-window-content::before,
+      .status-window-content::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-color: white;
+        border-style: solid;
+      }
+      .status-window-content::before {
+        bottom: -2px;
+        left: -2px;
+        border-width: 0 0 3px 3px;
+      }
+      .status-window-content::after {
+        bottom: -2px;
+        right: -2px;
+        border-width: 0 3px 3px 0;
+      }
+      
+      .system-panel {
+        background-color: rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 1rem;
+      }
+      
+      .system-button {
+        background: transparent;
+        border: 2px solid #22d3ee; /* cyan-400 */
+        color: #ecfeff; /* cyan-50 */
+        font-weight: bold;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .system-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #67e8f9; /* cyan-300 */
+        box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+      }
+      
+      /* 🚨 추가: 타이틀 그라데이션 애니메이션 */
+      @keyframes gradient-x {
+        0%, 100% {
+          background-size: 200% 200%;
+          background-position: left center;
+        }
+        50% {
+          background-size: 200% 200%;
+          background-position: right center;
+        }
+      }
+      .animate-gradient-x {
+        animation: gradient-x 5s ease infinite;
+      }
+
+      /* 🚨 수정: SVG 필터를 사용하여 더 안정적인 테두리 효과를 구현합니다. */
+      .text-stroke-svg {
+        filter: url(#text-stroke);
+      }
+
+      .system-input {
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        color: white;
+        text-align: center;
+        padding: 0.75rem 1rem;
+      }
+      .system-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .system-input:focus {
+        outline: none;
+        border-color: #67e8f9; /* cyan-300 */
+        box-shadow: 0 0 8px rgba(103, 232, 249, 0.7);
+      }
+
+      .title-line {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #0e7490, transparent);
+      }
+
+      /* Result Screen Animations */
+      @keyframes slide-in-from-bottom {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+      }
+      @keyframes blink {
+          from, to { opacity: 1; }
+          50% { opacity: 0; }
+      }
+      .reveal {
+          opacity: 0;
+          animation: slide-in-from-bottom 0.6s ease-out forwards;
+      }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-400 { animation-delay: 400ms; }
+      .delay-600 { animation-delay: 600ms; }
+      .delay-800 { animation-delay: 800ms; }
+      .delay-1000 { animation-delay: 1000ms; }
+      .delay-1200 { animation-delay: 1200ms; }
+      .typing-cursor::after {
+          content: '█';
+          animation: blink 1s step-end infinite;
+          margin-left: 2px;
+          color: #67e8f9;
+      }
+
+      /* Chat UI styles */
+      @keyframes slide-up-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-chat-message {
+        animation: slide-up-fade-in 0.4s ease-out forwards;
+      }
+
+      .chat-container {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0; /* Prevents shrinking in parent flex container */
+        width: 100%;
+        max-width: 28rem; /* 448px */
+        margin: 0 auto;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        height: 24rem; /* 384px */
+        max-height: 70vh; /* Prevent overflow on short screens */
+        min-height: 20rem; /* 320px */
+        overflow: hidden; /* To contain the border-radius */
+        background-image: 
+          linear-gradient(rgba(14, 116, 144, 0.1) 1px, transparent 1px),
+          linear-gradient(to right, rgba(14, 116, 144, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .chat-messages-area {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        min-height: 0;
+      }
+
+      .chat-messages-area::-webkit-scrollbar {
+        width: 6px;
+      }
+      .chat-messages-area::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .chat-messages-area::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 3px;
+      }
+
+      .chat-placeholder {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        font-size: 0.875rem; /* 14px */
+      }
+
+      .chat-input-fake {
+        padding: 0.75rem 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        background-color: rgba(0,0,0,0.3);
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.875rem; /* 14px */
+        text-align: center;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 0.1em;
+      }
+      
+      .chat-bubble {
+        padding: 0.75rem 1rem;
+        border-radius: 1rem;
+        max-width: 90%;
+        line-height: 1.5;
+        word-break: keep-all; /* Prevent awkward word breaks for Korean */
+      }
+
+      .chat-bubble-left {
+        align-self: flex-start;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-bottom-left-radius: 0.25rem;
+        color: white;
+      }
+
+      .chat-bubble-right {
+        align-self: flex-end;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-bottom-right-radius: 0.25rem;
+        color: white;
+      }
+
+      .observer-name {
+        font-weight: 700;
+        color: #a5f3fc; /* cyan-200 */
+        margin-right: 0.5rem;
+      }
+
+      .preload-content {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+        color: #e2e8f0;
+        line-height: 1.8;
+      }
+
+      .preload-hero {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .preload-hero h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+      }
+
+      .preload-hero p {
+        font-size: 1.1rem;
+        color: #cbd5f5;
+      }
+
+      .preload-section {
+        margin-bottom: 2.5rem;
+        background: rgba(15, 23, 42, 0.55);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 16px;
+        padding: 1.75rem;
+      }
+
+      .preload-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #38bdf8;
+      }
+
+      .preload-grid {
+        display: grid;
+        gap: 1.25rem;
+      }
+
+      .preload-grid.two {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .preload-article {
+        background: rgba(15, 118, 110, 0.35);
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid rgba(45, 212, 191, 0.25);
+      }
+
+      .preload-article h3 {
+        font-size: 1.25rem;
+        color: #5eead4;
+        margin-bottom: 0.75rem;
+      }
+
+      .preload-list {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin: 0.75rem 0;
+      }
+
+      .preload-list li {
+        margin-bottom: 0.35rem;
+      }
+
+      .preload-faq dt {
+        font-weight: 700;
+        color: #38bdf8;
+        margin-top: 1rem;
+      }
+
+      .preload-faq dd {
+        margin: 0.5rem 0 0 0;
+        color: #cbd5f5;
+      }
+
+      .preload-content {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        /* 레이아웃에 영향을 주지 않으면서 크롤러는 HTML 소스에서 읽을 수 있음 */
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2526415204860627"
+     crossorigin="anonymous"></script>
+</head>
+  <body class="bg-gray-950 text-white">
+    <main id="static-content" class="preload-content" aria-label="게이트 오브 툰 소개">
+      <section class="preload-hero">
+        <h1>게이트 오브 툰: AI가 찾아주는 당신의 인생 웹툰</h1>
+        <p>Gate of Toon은 대화형 AI가 취향을 파악해 최적의 웹툰을 추천하는 인터랙티브 안내 서비스입니다. PC, 모바일 어디서든 빠르게 웹툰 우주로 입장해 보세요.</p>
+      </section>
+
+      <section class="preload-section">
+        <h2>서비스 핵심 기능</h2>
+        <div class="preload-grid two">
+          <article class="preload-article">
+            <h3>취향 분석 Q&amp;A</h3>
+            <p>초기 사전 질문과 맞춤형 AI 인터뷰를 통해 당신의 독서 스타일을 세밀하게 분석합니다.</p>
+            <ul class="preload-list">
+              <li>선호하는 감상 속도와 완결 여부 파악</li>
+              <li>장르·분위기·캐릭터에 대한 취향 탐색</li>
+              <li>답변에 따라 후보 웹툰을 실시간 정제</li>
+            </ul>
+          </article>
+          <article class="preload-article">
+            <h3>실시간 후보 추적</h3>
+            <p>각 질문마다 남아 있는 후보 수를 시각적으로 보여 주어 추천 과정이 투명하게 진행됩니다.</p>
+            <ul class="preload-list">
+              <li>후보 감소 애니메이션과 안내 멘트 제공</li>
+              <li>결정 직전 최종 후보 비교 정보 안내</li>
+              <li>사용자 이름을 활용한 개인화 피드백</li>
+            </ul>
+          </article>
+          <article class="preload-article">
+            <h3>추천 결과 리포트</h3>
+            <p>선정된 웹툰의 줄거리, 추천 이유, 감상 포인트를 한눈에 확인하고 바로 보러 갈 수 있습니다.</p>
+            <ul class="preload-list">
+              <li>추천 근거 요약과 핵심 포인트 정리</li>
+              <li>관련 태그와 감상 키워드 안내</li>
+              <li>추가 리스트 화면으로 인기 작품 탐색</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="preload-section">
+        <h2>추천 웹툰 미리보기</h2>
+        <div class="preload-grid">
+          <article class="preload-article">
+            <h3>어비스 유니온</h3>
+            <p>초월적 존재들이 얽힌 SF 다크 판타지. 독특한 세계관과 치밀한 전개를 원하는 독자에게 어울립니다.</p>
+          </article>
+          <article class="preload-article">
+            <h3>별빛 정거장</h3>
+            <p>우주 정거장에서 벌어지는 휴머니즘 드라마. 잔잔한 감동과 성장 스토리를 사랑하는 분께 추천합니다.</p>
+          </article>
+          <article class="preload-article">
+            <h3>크림슨 하운드</h3>
+            <p>도시 범죄를 배경으로 한 하드보일드 액션. 몰입감 넘치는 추격전과 반전을 즐기고 싶다면 선택하세요.</p>
+          </article>
+          <article class="preload-article">
+            <h3>블루밍 노트</h3>
+            <p>캠퍼스 로맨스를 담은 힐링물. 음악과 청춘 감성이 어우러진 산뜻한 이야기를 찾는 이들에게 적합합니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="preload-section">
+        <h2>이용 방법</h2>
+        <ol class="preload-list">
+          <li>게이트 오브 툰에 접속하면 AI 안내자가 닉네임을 요청합니다.</li>
+          <li>두 개의 사전 속도 질문으로 추천 진행 속도를 조절합니다.</li>
+          <li>AI가 제시하는 맞춤형 질문에 답해 취향을 구체화합니다.</li>
+          <li>최종 후보 중 하나의 인생 웹툰을 엄선해 상세 정보를 제공합니다.</li>
+          <li>추천 결과에서 다시 시작하거나 전체 리스트를 살펴볼 수 있습니다.</li>
+        </ol>
+      </section>
+
+      <section class="preload-section">
+        <h2>자주 묻는 질문</h2>
+        <dl class="preload-faq">
+          <dt>Q. 추천 결과는 어떻게 만들어지나요?</dt>
+          <dd>Gemini 기반 AI가 최신 웹툰 데이터와 사용자의 답변을 결합해 후보를 단계적으로 좁혀 나갑니다.</dd>
+          <dt>Q. 이미 본 작품이 나오면 다시 추천받을 수 있나요?</dt>
+          <dd>결과 화면에서 다시 시작 버튼을 누르면 새로운 세션이 생성되어 다른 후보를 탐색합니다.</dd>
+          <dt>Q. 모바일에서도 이용이 가능한가요?</dt>
+          <dd>PC·모바일 모두 지원하며, 자이로 센서가 있는 기기에서는 패럴랙스 배경 효과가 활성화됩니다.</dd>
+        </dl>
+      </section>
+
+      <section class="preload-section">
+        <h2>연락처 및 업데이트</h2>
+        <p>운영: 돌블 (dolveul) · 문의: dorubru0331@gmail.com · 최신 소식은 게이트 오브 툰 블로그와 SNS에서 확인해 주세요.</p>
+      </section>
+    </main>
+
+    <noscript>
+      <p style="max-width:960px;margin:1rem auto;padding:1rem 1.5rem;background:#1f2937;border-radius:12px;color:#e2e8f0;line-height:1.6;">JavaScript가 비활성화되어 있습니다. 위 소개 콘텐츠를 통해 게이트 오브 툰 서비스 정보를 확인할 수 있으며, 모든 기능을 사용하려면 브라우저에서 JavaScript를 활성화해 주세요.</p>
+    </noscript>
+
+    <div id="root"></div>
+
+    
+    <!-- 🚨 추가: 텍스트 테두리 효과를 위한 SVG 필터 정의 -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <filter id="text-stroke" x="-20%" y="-20%" width="140%" height="140%">
+          <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated"/>
+          <feFlood flood-color="rgba(0,0,0,0.8)" result="black"/>
+          <feComposite in="black" in2="dilated" operator="in" result="stroke"/>
+          <feMerge>
+            <feMergeNode in="stroke"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+{
+  "name": "Gate of Toon: Interactive Webtoon Guide",
+  "description": "An interactive webtoon recommendation service that feels like a living guide. It uses an 'omniscient status window' concept to help users discover their destiny webtoon through a series of engaging questions.",
+  "requestFramePermissions": []
+}
