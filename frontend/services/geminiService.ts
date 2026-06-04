@@ -9,7 +9,7 @@ interface RecommendRequest {
 
 // 개발 및 배포 환경에서 데모(Mock) 모드 활성화 여부
 // VITE_USE_MOCK이 true이거나, 실제 API 주소가 없을 때 데모 모드로 작동
-const IS_MOCK_ENV = import.meta.env.VITE_USE_MOCK === 'true';
+const IS_MOCK_ENV = import.meta.env.VITE_USE_MOCK === 'true' || !import.meta.env.VITE_API_URL;
 
 export const getNextQuestion = async (
   requestData: RecommendRequest
