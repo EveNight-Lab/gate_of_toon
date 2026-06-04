@@ -18,8 +18,8 @@ export const getNextQuestion = async (
 
   if (IS_MOCK_ENV) {
     console.log("🌌 [Gate of Toon] VITE_USE_MOCK is active. Running in local Demo Mode.");
-    // 4초의 인위적 딜레이를 주어 후보군 카운트다운 애니메이션과 성좌 채팅 연출을 충분히 보여줍니다.
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    // 8초의 인위적 딜레이를 주어 후보군 카운트다운 애니메이션과 성좌 채팅 연출을 충분히 보여줍니다.
+    await new Promise(resolve => setTimeout(resolve, 8000));
     return handleMockRecommend(requestData);
   }
 
@@ -45,7 +45,7 @@ export const getNextQuestion = async (
       error
     );
     // 서버가 꺼져 있거나 에러가 나면 화면이 멈추지 않고 모의 시뮬레이터로 매끄럽게 연결
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise(resolve => setTimeout(resolve, 8000));
     return handleMockRecommend(requestData);
   }
 };
