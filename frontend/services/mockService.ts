@@ -2098,13 +2098,36 @@ const COMMENT_POOL: Record<string, { positive: string[]; negative: string[] }> =
     }
 };
 
+// Helper function to generate comments from a list of tags
+const generateMockComments = (tags: string[]): string[] => {
+  const comments: string[] = [];
+  tags.forEach(tag => {
+    const pool = COMMENT_POOL[tag];
+    if (pool) {
+      comments.push(pool.positive[Math.floor(Math.random() * pool.positive.length)]);
+      comments.push(pool.negative[Math.floor(Math.random() * pool.negative.length)]);
+    }
+  });
+
+  const genericPool = COMMENT_POOL["범용"];
+  if (genericPool) {
+    const allGeneric = [...genericPool.positive, ...genericPool.negative];
+    comments.push(allGeneric[Math.floor(Math.random() * allGeneric.length)]);
+  }
+
+  // Shuffle and return top 6 comments
+  return comments.sort(() => 0.5 - Math.random()).slice(0, 6);
+};
+
 let mockStep = 0;
 let userNickname = "모험가";
 let activeCandidates: Webtoon[] = [];
+let sessionTags: string[] = [];
 
 export const resetMockSession = () => {
   mockStep = 0;
   activeCandidates = [...MOCK_WEBTOONS];
+  sessionTags = [];
 };
 
 export const handleMockRecommend = (payload: { sessionId: string | null; message: string | object }): GeminiServiceResponse => {
@@ -2119,18 +2142,20 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
     }
 
     mockStep = 1;
+
+    // Generate comments for Question 1 options to display during Q1 -> Q2 transition
+    const q1OptionTags = ["현대", "환상", "도전", "시대물", "무협", "판타지", "로맨스", "욕망", "복수"];
+    const q1Comments = generateMockComments(q1OptionTags);
+
     return {
       sessionId: "mock-session-id",
       isFinal: false,
       message: `🌌 [성좌, '운명의 기록자'가 눈을 번뜩이며 ${userNickname}님을 환영합니다.] 당신의 취향 영혼이 탐색의 문을 열었습니다. 성좌들이 당신을 관전하기 위해 은하계 극장에 입장했습니다!`,
       filterRate: 0.8,
       newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
+      nextCandidateCount: Math.floor(activeCandidates.length * 0.6), // predicted next count (approx 39)
       isLastQuestion: false,
-      comments: [
-        "정의로운 빛의 성좌가 당신의 등장을 반갑게 미소 짓습니다.",
-        "음모와 혼돈의 성좌가 침을 꼴깍 삼키며 당신을 바라봅니다."
-      ],
+      comments: q1Comments,
       nextQuestion: {
         question: "1단계: 전장(세계관) 선택. 당신의 가슴을 뛰게 하는 무대는 어디인가요?",
         options: [
@@ -2147,42 +2172,33 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
   const selectedTags: string[] = (payload.message as any)?.tags || [];
   mockStep += 1;
 
-  // Heuristic Scoring
+  // Track tags selected during this session
+  sessionTags.push(...selectedTags);
+
+  // Heuristic Scoring based on all sessionTags accumulated so far
   const scoreCandidate = (webtoon: Webtoon): number => {
     let score = 0;
-    selectedTags.forEach(tag => {
+    sessionTags.forEach(tag => {
       if (webtoon.tags.includes(tag) || webtoon.standardTags?.includes(tag)) {
         score += 2;
       }
     });
-    // Add tiny randomness to avoid same recommendation every time
+    // Add tiny randomness to break ties
     score += Math.random() * 0.1;
     return score;
   };
 
-  // Sort and filter candidates
   const scored = activeCandidates.map(w => ({ webtoon: w, score: scoreCandidate(w) }));
   scored.sort((a, b) => b.score - a.score);
 
-  // Dynamic feedback comments based on selected tags
-  const feedbackComments: string[] = [];
-  selectedTags.forEach(tag => {
-    const pool = COMMENT_POOL[tag];
-    if (pool && pool.positive.length > 0) {
-      const idx = Math.floor(Math.random() * pool.positive.length);
-      feedbackComments.push(pool.positive[idx]);
-    }
-  });
-  if (feedbackComments.length === 0) {
-    feedbackComments.push("성좌들이 당신의 독특한 선택을 흥미롭게 주시합니다.");
-  }
-  // Max 2 comments
-  const chosenComments = feedbackComments.slice(0, 2);
-
   if (mockStep === 2) {
-    // Keep top 60% of candidates or at least 15 candidates
+    // Keep top 60% of candidates (approx 39 webtoons)
     const keepCount = Math.max(15, Math.floor(scored.length * 0.6));
     activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
+
+    // Generate comments for Question 2 options to display during Q2 -> Q3 transition
+    const q2OptionTags = ["도전", "욕망", "먼치킨", "정의", "성장", "논리", "전략", "감성", "드라마"];
+    const q2Comments = generateMockComments(q2OptionTags);
 
     return {
       sessionId: "mock-session-id",
@@ -2190,9 +2206,9 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
       message: `💬 [성좌, '비밀을 탐하는 감시자'가 흥미로운 코멘트를 던집니다: "${currentAnswer}"이라니... 꽤나 모험심 넘치는 길을 선택했군!]`,
       filterRate: 0.5,
       newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
+      nextCandidateCount: Math.floor(activeCandidates.length * 0.4), // predicted next count (approx 15)
       isLastQuestion: false,
-      comments: chosenComments,
+      comments: q2Comments,
       nextQuestion: {
         question: "2단계: 인격과 능력. 만약 강력한 재능을 얻는다면 당신의 태도는?",
         options: [
@@ -2206,9 +2222,13 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
   }
 
   if (mockStep === 3) {
-    // Keep top 40% of candidates or at least 6 candidates
+    // Keep top 40% of candidates (approx 15 webtoons)
     const keepCount = Math.max(6, Math.floor(scored.length * 0.4));
     activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
+
+    // Generate comments for Question 3 options to display during Q3 -> Final transition
+    const q3OptionTags = ["도전", "욕망", "사이다", "감성", "정의", "성장", "드라마"];
+    const q3Comments = generateMockComments(q3OptionTags);
 
     return {
       sessionId: "mock-session-id",
@@ -2216,9 +2236,9 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
       message: `🔮 [성좌, '심연의 지배자'가 굵직한 음성으로 웅얼거립니다: "네 영혼의 빛깔이 "${currentAnswer}" 방향으로 요동치는구나..."]`,
       filterRate: 0.2,
       newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
+      nextCandidateCount: 1, // Final target candidate count!
       isLastQuestion: true,
-      comments: chosenComments,
+      comments: q3Comments,
       nextQuestion: {
         question: "최종 단계: 위기 대응. 눈앞에 막강한 장벽이 놓여있습니다. 당신의 대응 방식은?",
         options: [
@@ -2232,6 +2252,22 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
   // Final step
   const recommended = scored[0].webtoon;
 
+  // Determine user traits based on accumulated sessionTags
+  const isChallenger = sessionTags.includes("도전") || sessionTags.includes("사이다") || sessionTags.includes("먼치킨");
+  const isEmotional = sessionTags.includes("감성") || sessionTags.includes("드라마") || sessionTags.includes("성장");
+  
+  const traitText = isChallenger 
+    ? "당신은 어떠한 시련 앞에서도 주저하지 않고, 압도적인 신념과 돌파력으로 난관을 정면 돌파해나가는 개척자 타입입니다."
+    : isEmotional
+      ? "당신은 인물들의 세심한 감정선에 공감하며, 고난 속에서 동료들과의 유대감을 통해 한 걸음 성장하는 드라마틱한 서사에서 깊은 카타르시스를 느낍니다."
+      : "당신은 상황을 냉철하게 분석하고 최선의 전략을 세워 영리하게 난관을 극복하는 이성적인 관찰자 성향에 가깝습니다.";
+
+  const connectionText = `이처럼 주체적이고 뚜렷한 당신의 취향에 가장 부합하는 웹툰은 바로 <${recommended.title}>입니다. 이 작품은 ${recommended.author} 작가의 탁월한 묘사를 기반으로, "${recommended.summary}"라는 독창적인 흐름을 담아내어 사용자의 성향과 완벽하게 일치하는 즐거움을 선사합니다.`;
+  
+  const closingText = `당신이 선택해온 방향이 가리키는 종착지, <${recommended.title}>이 선사하는 짜릿한 이야기를 즐겨보시길 바랍니다!`;
+
+  const reasonText = `${traitText} ${connectionText} ${closingText}`;
+
   return {
     sessionId: "mock-session-id",
     isFinal: true,
@@ -2239,10 +2275,7 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
     finalWebtoonData: {
       id: recommended.id,
       title: recommended.title,
-      reason: `성좌들이 일제히 함성을 지르며 당신의 성향을 추앙합니다! "${userNickname}"님은 최종 관문에서 '${currentAnswer}'를 선언하셨습니다. 
-      강력한 목적의식과 난관을 기회로 뒤집어버리는 대담함을 품고 계시군요. 당신에게 가장 어울리는 명작은 바로 <${recommended.title}>입니다. 
-      이 웹툰은 ${recommended.author} 작가의 작품으로, "${recommended.summary}" 라는 독보적인 이야기를 품고 있습니다. 
-      당신이 내린 선택들이 가리키는 궁극의 길, <${recommended.title}>을 통해 당신만의 해답을 찾아내시길 성좌들이 온 우주의 이름으로 축복합니다!`,
+      reason: reasonText,
       lifeCount: (recommended.lifeCount || 0) + 1
     }
   };
