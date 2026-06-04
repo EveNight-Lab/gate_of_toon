@@ -1,6 +1,4 @@
-import { Webtoon, GeminiServiceResponse } from '../types';
-
-export const MOCK_WEBTOONS: Webtoon[] = [
+[
   {
     "id": "25hXvjl8yjB1KB2pf7Mj",
     "title": "조조코믹스",
@@ -23,7 +21,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "개그",
       "캠퍼스"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=774862",
+    "url": "https://comic.naver.com/webtoon/list?titleId=774862z",
     "lifeCount": 0
   },
   {
@@ -54,7 +52,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "세계관",
       "스토리"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=730694",
+    "url": "https://comic.naver.com/webtoon/list?titleId=730694z",
     "lifeCount": 0
   },
   {
@@ -85,7 +83,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "현실풍자",
       "관찰개그"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=841639",
+    "url": "https://comic.naver.com/webtoon/list?titleId=841639z",
     "lifeCount": 0
   },
   {
@@ -118,7 +116,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "갈등",
       "반전"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=774866",
+    "url": "https://comic.naver.com/webtoon/list?titleId=774866z",
     "lifeCount": 0
   },
   {
@@ -153,13 +151,13 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "시스템적계획",
       "정치"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=832557",
+    "url": "https://comic.naver.com/webtoon/list?titleId=832557z",
     "lifeCount": 0
   },
   {
     "id": "AecA1yLPxHUzhigUeWmC",
     "title": "신입사원 김철수",
-    "author": "스튜디오MW · 오정z",
+    "author": "\u0018스튜디오MW · 오정z",
     "summary": "인생의 끝날에 입사 첫날로 돌아간 주인공이 이번 생에는 반드시 회사에서 성공하려고 고군분투하는 현대 회귀/성장물.",
     "tags": [
       "회귀",
@@ -184,7 +182,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "경영/승진",
       "현대판타지"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=812594",
+    "url": "https://comic.naver.com/webtoon/list?titleId=812594z",
     "lifeCount": 0
   },
   {
@@ -215,7 +213,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "천마",
       "환생"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=807777",
+    "url": "https://comic.naver.com/webtoon/list?titleId=807777z",
     "lifeCount": 0
   },
   {
@@ -240,7 +238,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "집착",
       "미스터리"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=808455",
+    "url": "https://comic.naver.com/webtoon/list?titleId=808455z",
     "lifeCount": 0
   },
   {
@@ -267,7 +265,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "고자극스릴러",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=822105",
+    "url": "https://comic.naver.com/webtoon/list?titleId=822105z",
     "lifeCount": 0
   },
   {
@@ -301,7 +299,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "세계멸망",
       "시스템적 장치"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=747269",
+    "url": "https://comic.naver.com/webtoon/list?titleId=747269z",
     "lifeCount": 0
   },
   {
@@ -330,7 +328,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "참교육",
       "성장"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=779632",
+    "url": "https://comic.naver.com/webtoon/list?titleId=779632z",
     "lifeCount": 0
   },
   {
@@ -365,7 +363,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "액션",
       "먼치킨 요소"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=822862",
+    "url": "https://comic.naver.com/webtoon/list?titleId=822862z",
     "lifeCount": 0
   },
   {
@@ -392,7 +390,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "젠더갈등",
       "사회풍자"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=842623",
+    "url": "https://comic.naver.com/webtoon/list?titleId=842623z",
     "lifeCount": 0
   },
   {
@@ -416,7 +414,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "도전",
       "유머"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=832677",
+    "url": "https://comic.naver.com/webtoon/list?titleId=832677z",
     "lifeCount": 0
   },
   {
@@ -447,7 +445,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "스토리",
       "무협/사극"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=650305",
+    "url": "https://comic.naver.com/webtoon/list?titleId=650305z",
     "lifeCount": 0
   },
   {
@@ -480,7 +478,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "관계",
       "청춘"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=654774",
+    "url": "https://comic.naver.com/webtoon/list?titleId=654774z",
     "lifeCount": 0
   },
   {
@@ -513,7 +511,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "탐험",
       "영리한주인공"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=808482",
+    "url": "https://comic.naver.com/webtoon/list?titleId=808482z",
     "lifeCount": 0
   },
   {
@@ -542,7 +540,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "성장",
       "능력자"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=805193",
+    "url": "https://comic.naver.com/webtoon/list?titleId=805193z",
     "lifeCount": 0
   },
   {
@@ -575,7 +573,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "관계",
       "육아팁(간접)"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=812354",
+    "url": "https://comic.naver.com/webtoon/list?titleId=812354z",
     "lifeCount": 0
   },
   {
@@ -607,12 +605,12 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "코미디적 요소(경향)",
       "성장"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=797443",
+    "url": "https://comic.naver.com/webtoon/list?titleId=797443z",
     "lifeCount": 0
   },
   {
     "id": "JAcQMhcymMJ2F0o4ePoO",
-    "title": "나 혼자 만렙 뉴비z",
+    "title": "\u0018나 혼자 만렙 뉴비z",
     "author": "WAN.Z ∙ 스윙뱃 ∙ 메슬로우",
     "summary": "게임 너튜버였던 주인공이 ‘시련의 탑’ 엔딩을 본 뒤, 그날 현실이 게임처럼 변하고 그는 유일하게 모든 것을 아는 자로서 살아남기 시작한다.",
     "tags": [
@@ -638,7 +636,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "시스템 요소",
       "모험"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=773797",
+    "url": "https://comic.naver.com/webtoon/list?titleId=773797z",
     "lifeCount": 0
   },
   {
@@ -671,7 +669,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "계략",
       "웹소설 원작(원작 기반)"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=800770",
+    "url": "https://comic.naver.com/webtoon/list?titleId=800770z",
     "lifeCount": 0
   },
   {
@@ -704,7 +702,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "미성년자 갈등",
       "정의 구현"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=758037",
+    "url": "https://comic.naver.com/webtoon/list?titleId=758037z",
     "lifeCount": 0
   },
   {
@@ -733,7 +731,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "관계역학",
       "감정드라마"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=817247",
+    "url": "https://comic.naver.com/webtoon/list?titleId=817247z",
     "lifeCount": 0
   },
   {
@@ -762,7 +760,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "현대물",
       "복수 요소"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=751168",
+    "url": "https://comic.naver.com/webtoon/list?titleId=751168z",
     "lifeCount": 0
   },
   {
@@ -796,7 +794,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "경영요소(농사)",
       "사회관계"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=837486",
+    "url": "https://comic.naver.com/webtoon/list?titleId=837486z",
     "lifeCount": 0
   },
   {
@@ -825,7 +823,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "성장",
       "능력자"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=769209",
+    "url": "https://comic.naver.com/webtoon/list?titleId=769209z",
     "lifeCount": 0
   },
   {
@@ -848,7 +846,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "겨울특선",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=835751",
+    "url": "https://comic.naver.com/webtoon/list?titleId=835751z",
     "lifeCount": 0
   },
   {
@@ -875,7 +873,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "마교",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=813563",
+    "url": "https://comic.naver.com/webtoon/list?titleId=813563z",
     "lifeCount": 0
   },
   {
@@ -910,7 +908,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "무공",
       "복수"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=746857",
+    "url": "https://comic.naver.com/webtoon/list?titleId=746857z",
     "lifeCount": 0
   },
   {
@@ -937,7 +935,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "단편",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=713872",
+    "url": "https://comic.naver.com/webtoon/list?titleId=713872z",
     "lifeCount": 0
   },
   {
@@ -966,7 +964,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "복수",
       "성장"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=758150",
+    "url": "https://comic.naver.com/webtoon/list?titleId=758150z",
     "lifeCount": 0
   },
   {
@@ -1000,7 +998,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "인간심리",
       "서바이벌"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=838002",
+    "url": "https://comic.naver.com/webtoon/list?titleId=838002z",
     "lifeCount": 0
   },
   {
@@ -1031,7 +1029,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "액션판타지",
       "미친작화"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=840347",
+    "url": "https://comic.naver.com/webtoon/list?titleId=840347z",
     "lifeCount": 0
   },
   {
@@ -1058,7 +1056,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "소년왕도물",
       "장기연재"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=183559",
+    "url": "https://comic.naver.com/webtoon/list?titleId=183559z",
     "lifeCount": 0
   },
   {
@@ -1079,7 +1077,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "친구동생",
       "짝사랑"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=829418",
+    "url": "https://comic.naver.com/webtoon/list?titleId=829418z",
     "lifeCount": 0
   },
   {
@@ -1108,7 +1106,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "자극적인",
       "후회물"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=821851",
+    "url": "https://comic.naver.com/webtoon/list?titleId=821851z",
     "lifeCount": 0
   },
   {
@@ -1139,7 +1137,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "부성애",
       "조직싸움"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=783053",
+    "url": "https://comic.naver.com/webtoon/list?titleId=783053z",
     "lifeCount": 0
   },
   {
@@ -1165,7 +1163,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "환상",
       "도전"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=796075",
+    "url": "https://comic.naver.com/webtoon/list?titleId=796075z",
     "lifeCount": 0
   },
   {
@@ -1196,7 +1194,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "공모전수상작",
       "다크판타지"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=842462",
+    "url": "https://comic.naver.com/webtoon/list?titleId=842462z",
     "lifeCount": 0
   },
   {
@@ -1223,7 +1221,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "기사",
       "소년"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=824543",
+    "url": "https://comic.naver.com/webtoon/list?titleId=824543z",
     "lifeCount": 0
   },
   {
@@ -1256,7 +1254,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "성찰",
       "감정선"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=836052",
+    "url": "https://comic.naver.com/webtoon/list?titleId=836052z",
     "lifeCount": 0
   },
   {
@@ -1291,7 +1289,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "모험",
       "액션"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=822657",
+    "url": "https://comic.naver.com/webtoon/list?titleId=822657z",
     "lifeCount": 0
   },
   {
@@ -1324,7 +1322,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "회상",
       "문화참조"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=821793",
+    "url": "https://comic.naver.com/webtoon/list?titleId=821793z",
     "lifeCount": 0
   },
   {
@@ -1359,7 +1357,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "정치",
       "성장"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=821597",
+    "url": "https://comic.naver.com/webtoon/list?titleId=821597z",
     "lifeCount": 0
   },
   {
@@ -1394,7 +1392,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "기술융합",
       "먼치킨 요소"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=747271",
+    "url": "https://comic.naver.com/webtoon/list?titleId=747271z",
     "lifeCount": 0
   },
   {
@@ -1427,7 +1425,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "모험",
       "서사보강"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=838432",
+    "url": "https://comic.naver.com/webtoon/list?titleId=838432z",
     "lifeCount": 0
   },
   {
@@ -1456,7 +1454,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "여성 주인공 중심",
       "감정 드라마"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=735661",
+    "url": "https://comic.naver.com/webtoon/list?titleId=735661z",
     "lifeCount": 0
   },
   {
@@ -1485,7 +1483,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "사이다",
       "무쌍"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=839568",
+    "url": "https://comic.naver.com/webtoon/list?titleId=839568z",
     "lifeCount": 0
   },
   {
@@ -1512,7 +1510,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "고전",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=842399",
+    "url": "https://comic.naver.com/webtoon/list?titleId=842399z",
     "lifeCount": 0
   },
   {
@@ -1541,7 +1539,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "순정(경향 없음)",
       "SNS 친화적 콘텐트"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=823195",
+    "url": "https://comic.naver.com/webtoon/list?titleId=823195z",
     "lifeCount": 0
   },
   {
@@ -1570,7 +1568,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "슬로우 라이프",
       "관계"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=733074",
+    "url": "https://comic.naver.com/webtoon/list?titleId=733074z",
     "lifeCount": 0
   },
   {
@@ -1603,7 +1601,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "운명역전",
       "권력"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=828715",
+    "url": "https://comic.naver.com/webtoon/list?titleId=828715z",
     "lifeCount": 0
   },
   {
@@ -1634,7 +1632,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "현대 판타지",
       "분양/건설"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=777767",
+    "url": "https://comic.naver.com/webtoon/list?titleId=777767z",
     "lifeCount": 0
   },
   {
@@ -1661,7 +1659,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "재벌",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=823663",
+    "url": "https://comic.naver.com/webtoon/list?titleId=823663z",
     "lifeCount": 0
   },
   {
@@ -1690,7 +1688,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "자취",
       "현실반영"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=811721",
+    "url": "https://comic.naver.com/webtoon/list?titleId=811721z",
     "lifeCount": 0
   },
   {
@@ -1725,7 +1723,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "희생",
       "극한 상황"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=832703",
+    "url": "https://comic.naver.com/webtoon/list?titleId=832703z",
     "lifeCount": 0
   },
   {
@@ -1756,7 +1754,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "감정선",
       "긴장감"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=839544",
+    "url": "https://comic.naver.com/webtoon/list?titleId=839544z",
     "lifeCount": 0
   },
   {
@@ -1789,7 +1787,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "인간관계",
       "심리"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=641253",
+    "url": "https://comic.naver.com/webtoon/list?titleId=641253z",
     "lifeCount": 0
   },
   {
@@ -1822,7 +1820,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "먼치킨 요소",
       "스릴"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=776601",
+    "url": "https://comic.naver.com/webtoon/list?titleId=776601z",
     "lifeCount": 1
   },
   {
@@ -1853,7 +1851,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "성장",
       "연대기적 전개"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=717481",
+    "url": "https://comic.naver.com/webtoon/list?titleId=717481z",
     "lifeCount": 0
   },
   {
@@ -1882,7 +1880,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "나쁜남자",
       "완결"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=822080",
+    "url": "https://comic.naver.com/webtoon/list?titleId=822080z",
     "lifeCount": 0
   },
   {
@@ -1916,7 +1914,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "긴장감",
       "미스테리"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=836848",
+    "url": "https://comic.naver.com/webtoon/list?titleId=836848z",
     "lifeCount": 0
   },
   {
@@ -1941,7 +1939,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "성장",
       "일상"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=737628",
+    "url": "https://comic.naver.com/webtoon/list?titleId=737628z",
     "lifeCount": 0
   },
   {
@@ -1974,7 +1972,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "복수",
       "영웅 서사"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=802278",
+    "url": "https://comic.naver.com/webtoon/list?titleId=802278z",
     "lifeCount": 0
   },
   {
@@ -2005,245 +2003,7 @@ export const MOCK_WEBTOONS: Webtoon[] = [
       "생존",
       "미식"
     ],
-    "url": "https://comic.naver.com/webtoon/list?titleId=842674",
+    "url": "https://comic.naver.com/webtoon/list?titleId=842674z",
     "lifeCount": 0
   }
-];
-
-// COMMENT_POOL extracted from backend constants.ts
-const COMMENT_POOL: Record<string, { positive: string[]; negative: string[] }> = {
-    "현실": {
-        positive: ["『냉철한 현실주의자』가 당신의 판단을 신뢰합니다.", "『이성의 등불』이 당신의 선택을 지지합니다.", "『대지의 무게』가 당신의 견고함을 칭찬합니다.", "『계산적인 전략가』가 당신의 수를 높이 평가합니다."],
-        negative: ["『구름 위를 걷는 몽상가』가 당신의 선택에 고개를 젓습니다.", "『환상의 지배자』가 당신의 근시안적인 시야를 비웃습니다."]
-    },
-    "환상": {
-        positive: ["『구름 위를 걷는 몽상가』가 당신의 상상력에 감탄합니다.", "『별빛의 비밀을 속삭이는 자』가 당신에게서 동질감을 느낍니다.", "『환상의 지배자』가 당신의 선택에 만족합니다.", "『미지의 영역을 탐하는 자』가 당신의 대담함에 흥미를 보입니다."],
-        negative: ["『냉철한 현실주의자』가 당신의 뻔한 선택에 하품합니다.", "『이성의 등불』이 비논리적인 선택이라며 경고합니다."]
-    },
-    "코믹": {
-        positive: ["『축제의 광대』가 당신의 선택에 유쾌하게 웃습니다.", "『가벼운 농담의 신』이 당신의 재치에 박수를 보냅니다.", "『예측불허의 장난꾸러기』가 당신의 선택에 흥미를 느낍니다."],
-        negative: ["『비극의 서사시』가 당신의 가벼움을 탐탁지 않게 여깁니다.", "『고뇌하는 철학자』가 당신의 선택을 이해하지 못합니다."]
-    },
-    "드라마": {
-        positive: ["『비극의 서사시』가 당신의 고뇌에 공감합니다.", "『인간 군상의 관찰자』가 깊은 감정의 소용돌이를 흥미롭게 지켜봅니다.", "『운명의 직조자』가 복잡하게 얽히는 실을 바라봅니다."],
-        negative: ["『축제의 광대』가 지금 웃을 때가 아니라며 핀잔을 줍니다.", "『가벼운 농담의 신』이 분위기 파악을 못한다며 혀를 찹니다."]
-    },
-    "로맨스": {
-        positive: ["『인연의 붉은 실』이 당신의 선택에 짙게 빛납니다.", "『사랑의 서약을 지키는 자』가 당신의 마음에 감동합니다.", "『별들의 교차점』이 새로운 만남을 축복합니다."],
-        negative: ["『고독한 탐험가』가 홀로 설 것을 권합니다.", "『전장의 늑대』가 사랑 타령은 전장에서 쓸모없다고 포효합니다."]
-    },
-    "비로맨스": {
-        positive: ["『고독한 탐험가』가 당신의 독립심을 높이 평가합니다.", "『전장의 늑대』가 당신의 강인함에 만족합니다.", "『우정의 맹세』가 당신의 의리를 칭송합니다."],
-        negative: ["『인연의 붉은 실』이 얽히지 않는 당신을 안타깝게 바라봅니다.", "『사랑의 서약을 지키는 자』가 당신의 메마름을 걱정합니다."]
-    },
-    "도전": {
-        positive: ["『역경을 극복하는 영웅』이 당신과 함께합니다.", "『폭풍을 향해 돛을 올린 선장』이 당신의 결의에 찬사를 보냅니다.", "『미지의 영역을 탐하는 자』가 당신의 용기에 감탄합니다."],
-        negative: ["『안주하는 온실의 주인』이 위험한 길이라며 만류합니다.", "『평온의 수호자』가 당신의 무모함을 우려합니다."]
-    },
-    "안정": {
-        positive: ["『안주하는 온실의 주인』이 당신의 현명함을 칭찬합니다.", "『평온의 수호자』가 당신의 선택에 만족합니다.", "『고요한 숲의 그림자』가 당신에게서 평화를 느낍니다."],
-        negative: ["『역경을 극복하는 영웅』이 당신의 나약함을 비웃습니다.", "『폭풍을 향해 돛을 올린 선장』이 당신의 안일함에 실망합니다."]
-    },
-    "정의": {
-        positive: ["『정의의 저울』이 당신의 편에서 기울어집니다.", "『절대 선의 추종자』가 당신의 신념을 지지합니다.", "『약자의 방패』가 당신의 선택에 경의를 표합니다."],
-        negative: ["『혼돈의 사도』가 당신의 위선을 비웃습니다.", "『욕망의 화신』이 당신의 고지식함을 조롱합니다."]
-    },
-    "욕망": {
-        positive: ["『욕망의 화신』이 당신의 솔직함을 마음에 들어 합니다.", "『절대 왕좌의 주인』이 당신의 야망을 인정합니다.", "『혼돈의 사도』가 당신의 선택에 만족스러워합니다."],
-        negative: ["『정의의 저울』이 당신의 탐욕을 꾸짖습니다.", "『절대 선의 추종자』가 당신의 타락을 슬퍼합니다."]
-    },
-    "유머": {
-        positive: ["『유쾌한 이야기꾼』이 당신의 말에 웃음을 터뜨립니다.", "『축제의 광대』가 당신을 새로운 장난의 공모자로 지목합니다.", "『가벼운 농담의 신』이 당신의 유머 감각을 칭찬합니다."],
-        negative: ["『엄격한 규율의 집행관』이 당신의 경박함을 지적합니다.", "『진리의 탐구자』가 농담할 시간이 없다고 말합니다."]
-    },
-    "진지": {
-        positive: ["『진리의 탐구자』가 당신의 통찰력에 주목합니다.", "『엄격한 규율의 집행관』이 당신의 태도를 신뢰합니다.", "『고뇌하는 철학자』가 당신의 깊이에 감탄합니다."],
-        negative: ["『유쾌한 이야기꾼』이 너무 심각하다며 어깨를 으쓱합니다.", "『축제의 광대』가 당신의 딱딱함에 하품합니다."]
-    },
-    "현대": {
-        positive: ["『도시의 네온사인』이 당신을 현란하게 비춥니다.", "『강철과 유리의 감시자』가 당신의 세련됨을 인정합니다.", "『최첨단 기술의 선구자』가 당신에게서 미래를 봅니다."],
-        negative: ["『오래된 전통의 수호자』가 당신의 근본 없음을 개탄합니다.", "『대자연의 정령』이 인공적인 것에 대한 거부감을 드러냅니다."]
-    },
-    "시대물": {
-        positive: ["『오래된 전통의 수호자』가 당신의 선택에 고개를 끄덕입니다.", "『역사의 기록자』가 당신의 행보를 흥미롭게 기록하기 시작합니다.", "『대자연의 정령』이 당신에게서 옛 시대의 향수를 느낍니다."],
-        negative: ["『도시의 네온사인』이 당신의 고루함을 비웃습니다.", "『최첨단 기술의 선구자』가 당신의 낡은 방식에 흥미를 잃습니다."]
-    },
-    "집단": {
-        positive: ["『함께하는 여정의 인도자』가 당신의 선택에 미소 짓습니다.", "『위대한 공동체의 설계자』가 당신의 희생에 감사를 표합니다.", "『우정의 맹세』가 당신의 의리를 높이 평가합니다."],
-        negative: ["『고독한 방랑자』가 당신의 의존성을 경멸합니다.", "『유일무이한 존재』가 평범한 무리에 섞이려는 당신을 이해하지 못합니다."]
-    },
-    "개인": {
-        positive: ["『고독한 방랑자』가 당신의 길을 응원합니다.", "『유일무이한 존재』가 당신의 특별함을 알아봅니다.", "『스스로 길을 개척하는 자』가 당신의 독립심에 박수를 보냅니다."],
-        negative: ["『함께하는 여정의 인도자』가 당신의 이기심을 우려합니다.", "『위대한 공동체의 설계자』가 당신의 일탈을 경계합니다."]
-    },
-    "감성": {
-        positive: ["『만물의 소리를 듣는 자』가 당신의 마음에 공감합니다.", "『슬픔을 보듬는 치유사』가 당신의 상상력을 위로합니다.", "『순수한 감정의 결정체』가 당신의 선택에 빛을 발합니다."],
-        negative: ["『얼어붙은 심장의 군주』가 감정의 무의미함을 논합니다.", "『강철의 논리』가 당신의 선택을 오류로 간주합니다."]
-    },
-    "논리": {
-        positive: ["『강철의 논리』가 당신의 명쾌한 분석에 만족합니다.", "『체스판의 지배자』가 당신의 다음 수를 기대합니다.", "『모든 것을 계산하는 자』가 당신의 합리성을 인정합니다."],
-        negative: ["『만물의 소리를 듣는 자』가 당신의 차가움을 안타까워합니다.", "『순수한 감정의 결정체』가 당신의 계산적인 태도에 상처받습니다."]
-    },
-    "치유": {
-        positive: ["『새벽의 이슬을 머금은 풀잎』이 당신의 선택에 조용히 미소 짓습니다.", "『따뜻한 모닥불의 정령』이 당신 곁으로 다가옵니다.", "『상처 입은 영혼의 안식처』가 당신을 편안하게 감쌉니다."],
-        negative: ["『꺼지지 않는 투쟁의 불꽃』이 당신의 안일함에 분노합니다.", "『피와 복수의 화신』이 당신의 평화로움을 비웃습니다."]
-    },
-    "긴장": {
-        positive: ["『꺼지지 않는 투쟁의 불꽃』이 당신의 투지를 불태웁니다.", "『피와 복수의 화신』이 당신의 결의에 만족합니다.", "『심연의 그림자』가 당신의 선택이 가져올 파국을 기대합니다."],
-        negative: ["『새벽의 이슬을 머금은 풀잎』이 당신의 선택에 불안해합니다.", "『따뜻한 모닥불의 정령』이 당신의 살기에 몸을 움츠립니다."]
-    },
-    "범용": {
-        positive: ["『다수의 관찰자』가 당신의 선택에 흥미를 보입니다.", "『변수를 사랑하는 자』가 예상치 못한 선택에 환호합니다.", "『논쟁을 즐기는 자』가 당신의 결정을 두고 격렬한 토론을 시작합니다.", "『침묵하던 관찰자』들이 당신의 다음 행보에 주목하기 시작합니다."],
-        negative: ["『소수의 관찰자』가 당신의 선택을 이해하지 못하고 고개를 젓습니다.", "『예측가들』이 당신의 의도를 파악하려 분주하게 움직입니다.", "『기록자』가 당신의 선택이 가져올 파장을 묵묵히 기록합니다.", "『혼돈의 사도』가 당신의 선택이 만들어낼 균열에 만족스러워합니다."]
-    }
-};
-
-let mockStep = 0;
-let userNickname = "모험가";
-let activeCandidates: Webtoon[] = [];
-
-export const resetMockSession = () => {
-  mockStep = 0;
-  activeCandidates = [...MOCK_WEBTOONS];
-};
-
-export const handleMockRecommend = (payload: { sessionId: string | null; message: string | object }): GeminiServiceResponse => {
-  if (payload.sessionId === null) {
-    resetMockSession();
-    
-    try {
-      const parsed = JSON.parse(payload.message as string);
-      userNickname = parsed.nickname || "모험가";
-    } catch (e) {
-      userNickname = "모험가";
-    }
-
-    mockStep = 1;
-    return {
-      sessionId: "mock-session-id",
-      isFinal: false,
-      message: `🌌 [성좌, '운명의 기록자'가 눈을 번뜩이며 ${userNickname}님을 환영합니다.] 당신의 취향 영혼이 탐색의 문을 열었습니다. 성좌들이 당신을 관전하기 위해 은하계 극장에 입장했습니다!`,
-      filterRate: 0.8,
-      newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
-      isLastQuestion: false,
-      comments: [
-        "정의로운 빛의 성좌가 당신의 등장을 반갑게 미소 짓습니다.",
-        "음모와 혼돈의 성좌가 침을 꼴깍 삼키며 당신을 바라봅니다."
-      ],
-      nextQuestion: {
-        question: "1단계: 전장(세계관) 선택. 당신의 가슴을 뛰게 하는 무대는 어디인가요?",
-        options: [
-          { text: "현대 배경에 던전/레이드가 열리는 판타지 세계", tags: ["현대", "환상", "도전"] },
-          { text: "칼끝에 매화검이 흩날리는 강호의 무협 세계", tags: ["시대물", "환상", "도전", "무협"] },
-          { text: "마법과 마수가 웅성거리는 서양 정통 판타지 세계", tags: ["환상", "도전", "판타지"] },
-          { text: "복수와 야망이 소용돌이치는 궁중 로맨스 판타지", tags: ["로맨스", "욕망", "복수"] }
-        ]
-      }
-    };
-  }
-
-  const currentAnswer = (payload.message as any)?.text || "선택";
-  const selectedTags: string[] = (payload.message as any)?.tags || [];
-  mockStep += 1;
-
-  // Heuristic Scoring
-  const scoreCandidate = (webtoon: Webtoon): number => {
-    let score = 0;
-    selectedTags.forEach(tag => {
-      if (webtoon.tags.includes(tag) || webtoon.standardTags?.includes(tag)) {
-        score += 2;
-      }
-    });
-    // Add tiny randomness to avoid same recommendation every time
-    score += Math.random() * 0.1;
-    return score;
-  };
-
-  // Sort and filter candidates
-  const scored = activeCandidates.map(w => ({ webtoon: w, score: scoreCandidate(w) }));
-  scored.sort((a, b) => b.score - a.score);
-
-  // Dynamic feedback comments based on selected tags
-  const feedbackComments: string[] = [];
-  selectedTags.forEach(tag => {
-    const pool = COMMENT_POOL[tag];
-    if (pool && pool.positive.length > 0) {
-      const idx = Math.floor(Math.random() * pool.positive.length);
-      feedbackComments.push(pool.positive[idx]);
-    }
-  });
-  if (feedbackComments.length === 0) {
-    feedbackComments.push("성좌들이 당신의 독특한 선택을 흥미롭게 주시합니다.");
-  }
-  // Max 2 comments
-  const chosenComments = feedbackComments.slice(0, 2);
-
-  if (mockStep === 2) {
-    // Keep top 60% of candidates or at least 15 candidates
-    const keepCount = Math.max(15, Math.floor(scored.length * 0.6));
-    activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
-
-    return {
-      sessionId: "mock-session-id",
-      isFinal: false,
-      message: `💬 [성좌, '비밀을 탐하는 감시자'가 흥미로운 코멘트를 던집니다: "${currentAnswer}"이라니... 꽤나 모험심 넘치는 길을 선택했군!]`,
-      filterRate: 0.5,
-      newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
-      isLastQuestion: false,
-      comments: chosenComments,
-      nextQuestion: {
-        question: "2단계: 인격과 능력. 만약 강력한 재능을 얻는다면 당신의 태도는?",
-        options: [
-          { text: "처음부터 적들을 압도하는 천재형 먼치킨", tags: ["도전", "욕망", "먼치킨"] },
-          { text: "밑바닥에서 피눈물 흘리며 성장하는 노력형 주인공", tags: ["도전", "정의", "성장"] },
-          { text: "머리와 권모술수로 판을 뒤흔드는 지략가", tags: ["논리", "욕망", "복수", "전략"] },
-          { text: "동료와의 끈끈한 유대감으로 승리하는 따뜻한 리더", tags: ["감성", "정의", "성장", "드라마"] }
-        ]
-      }
-    };
-  }
-
-  if (mockStep === 3) {
-    // Keep top 40% of candidates or at least 6 candidates
-    const keepCount = Math.max(6, Math.floor(scored.length * 0.4));
-    activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
-
-    return {
-      sessionId: "mock-session-id",
-      isFinal: false,
-      message: `🔮 [성좌, '심연의 지배자'가 굵직한 음성으로 웅얼거립니다: "네 영혼의 빛깔이 "${currentAnswer}" 방향으로 요동치는구나..."]`,
-      filterRate: 0.2,
-      newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: activeCandidates.length,
-      isLastQuestion: true,
-      comments: chosenComments,
-      nextQuestion: {
-        question: "최종 단계: 위기 대응. 눈앞에 막강한 장벽이 놓여있습니다. 당신의 대응 방식은?",
-        options: [
-          { text: "참지 않는다! 즉시 폭발적인 힘으로 장벽을 부숴버린다 (사이다 피드백)", tags: ["도전", "욕망", "사이다"] },
-          { text: "모두를 이끈다! 고난을 동료들과 극복하며 성장한다 (성장 감동)", tags: ["감성", "정의", "성장", "드라마"] }
-        ]
-      }
-    };
-  }
-
-  // Final step
-  const recommended = scored[0].webtoon;
-
-  return {
-    sessionId: "mock-session-id",
-    isFinal: true,
-    message: `🌌 [성좌들의 시선이 하나의 운명선에 고정됩니다!] ${userNickname}님의 영혼에 가장 완벽하게 공명한 100% 싱크로율 웹툰을 매칭해 드립니다.`,
-    finalWebtoonData: {
-      id: recommended.id,
-      title: recommended.title,
-      reason: `성좌들이 일제히 함성을 지르며 당신의 성향을 추앙합니다! "${userNickname}"님은 최종 관문에서 '${currentAnswer}'를 선언하셨습니다. 
-      강력한 목적의식과 난관을 기회로 뒤집어버리는 대담함을 품고 계시군요. 당신에게 가장 어울리는 명작은 바로 <${recommended.title}>입니다. 
-      이 웹툰은 ${recommended.author} 작가의 작품으로, "${recommended.summary}" 라는 독보적인 이야기를 품고 있습니다. 
-      당신이 내린 선택들이 가리키는 궁극의 길, <${recommended.title}>을 통해 당신만의 해답을 찾아내시길 성좌들이 온 우주의 이름으로 축복합니다!`,
-      lifeCount: (recommended.lifeCount || 0) + 1
-    }
-  };
-};
+]
