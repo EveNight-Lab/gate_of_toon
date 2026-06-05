@@ -22,7 +22,7 @@ function App() {
   const {
     gameState, gamePhase, error, isLoading, allWebtoons, candidateIds, userName,
     currentMessage, currentQuestion, currentOptions, questionCount, infoContent, nextCount, isFinalQuestion,
-    finalResult, recommendationText, feedback, handleShowInfo,
+    finalResult, recommendationText, feedback, handleShowInfo, totalScore,
     handleStart, handleAnswer, handleRestart, handleShowList, handlePreQuestionsComplete,
   } = useGameLogic(calibrate);
 
@@ -70,7 +70,7 @@ function App() {
                     options={currentOptions}
                     onAnswer={(option) => handleAnswer(option)}
                     questionCount={questionCount}
-                    totalQuestions={MAX_QUESTIONS}
+                    totalQuestions={totalScore || 5}
                     totalWebtoons={allWebtoons.length}
                     isFinalQuestion={isFinalQuestion}
                     candidateCount={candidateIds?.length ?? allWebtoons.length}

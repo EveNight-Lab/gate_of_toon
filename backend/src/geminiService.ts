@@ -18,39 +18,36 @@ const {
 
 const MODEL_NAME = "gemini-2.5-flash"; // 객관식 MVP에 최적화된 모델
 
-// [수정] 7단계 필터링 비율 정의 (총 점수 2~8점 매핑: 약 20% ~ 35%로 상향 조정하여 5~10회 질문 유도)
+// [수정] 사용자가 직접 정한 질문 개수(5, 7, 10)에 따른 필터링 비율 정의
 const FILTER_RATES: { [key: number]: number } = {
-    8: 0.350, // Max Speed / Max Depth (약 5회)
-    7: 0.325,
-    6: 0.300,
-    5: 0.275,
-    4: 0.250, // 중간값
-    3: 0.225,
-    2: 0.200, // Min Speed / Min Depth (약 10회)
+    5: 0.35,  // 5개 질문 (매 단계 약 35%씩 감축)
+    7: 0.26,  // 7개 질문 (매 단계 약 26%씩 감축)
+    10: 0.19, // 10개 질문 (매 단계 약 19%씩 감축)
 };
 
 /**
- * 사용자 메시지에서 필터링 속도 선호도 (총 점수)를 파악하고 필터링 비율을 결정합니다.
+ * 사용자 메시지에서 필터링 속도 선호도 (질문 개수)를 파악하고 필터링 비율을 결정합니다.
  * (초기 호출 시 사용)
- * message는 { nickname: "...", totalScore: 2~8 } JSON 문자열입니다.
+ * message는 { nickname: "...", totalScore: 5 | 7 | 10 } JSON 문자열입니다.
  */
 function determineFilterRate(message: string): number {
-    const defaultRate = FILTER_RATES[2]; // 기본값 (가장 정밀/느린 모드)
+    const defaultRate = FILTER_RATES[5]; // 기본값: 5개 질문
     try {
         const initialSetup = JSON.parse(message);
-        // totalScore를 문자열로 받을 수 있으므로 parseInt를 사용해 안전하게 변환
         const totalScore = parseInt(initialSetup.totalScore as string, 10) || 0; 
         
-        // 점수가 유효 범위(2~8) 내에 있으면 해당 비율 적용
         if (FILTER_RATES[totalScore]) {
             const rate = FILTER_RATES[totalScore];
-            console.log(`Determined Filter Rate: Score ${totalScore} -> ${rate * 100}%`);
+            console.log(`Determined Filter Rate: Choice ${totalScore} questions -> ${rate * 100}%`);
             return rate;
         } else {
-            console.warn(`Invalid totalScore received: ${initialSetup.totalScore}. Defaulting to 30%.`);
+            // 하위 호환성 및 범위 기반 매핑
+            if (totalScore <= 5) return FILTER_RATES[5];
+            if (totalScore <= 8) return FILTER_RATES[7];
+            return FILTER_RATES[10];
         }
     } catch (e: any) {
-        console.warn("Initial message not in expected JSON format or missing score. Defaulting to 30%.");
+        console.warn("Initial message not in expected JSON format. Defaulting to 5 questions rate.");
     }
     return defaultRate;
 }
