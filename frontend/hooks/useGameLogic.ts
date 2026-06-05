@@ -12,25 +12,13 @@ const NICKNAME_QUESTION = {
   options: [], 
 };
 
-const SPEED_QUESTION_1 = {
-  question: "새로운 웹툰을 볼 때, 당신은 어떤 방식으로 이야기를 즐기시나요?",
-  message: "당신의 웹툰 감상 스타일을 알려주세요.",
+const SPEED_QUESTION = {
+  question: "몇 개의 질문을 통해 인생 웹툰을 추천받고 싶으신가요?",
+  message: "원하는 추천 깊이에 맞춰 질문 개수를 선택해주세요.",
   options: [
-    { text: "처음부터 정주행", score: 1 },
-    { text: "한편 보고 재미있으면 첫화부터", score: 2 },
-    { text: "재미 없는 부분은 과감히 스킵", score: 3 },
-    { text: "기다림이 필요없는 완결작품 위주로", score: 4 },
-  ],
-};
-
-const SPEED_QUESTION_2 = {
-  question: "얼마나 신중하게 추천을 진행하기를 원하시나요??",
-  message: "웹툰이 당신의 삶에 어떤 영향을 미치는지 궁금하군요.",
-  options: [
-    { text: "조금 느려도 확실하게", score: 1 },
-    { text: "느리지는 않게", score: 2 },
-    { text: "되도록 빠르게", score: 3 },
-    { text: "나는 핑거스냅이 좋아요(절반)", score: 4 },
+    { text: "5개 (빠르고 직관적인 추천)", score: 5 },
+    { text: "7개 (적당하고 밸런스 있는 추천)", score: 7 },
+    { text: "10개 (매우 신중하고 꼼꼼한 추천)", score: 10 },
   ],
 };
 
@@ -278,33 +266,17 @@ try {
 
     if (gamePhase === GamePhase.NICKNAME) {
       setUserName(answerText);
-      // 닉네임 입력 후, 첫 번째 속도 질문으로 전환
-      setCurrentMessage(SPEED_QUESTION_1.message);
-      setCurrentQuestion(SPEED_QUESTION_1.question);
-      setCurrentOptions(SPEED_QUESTION_1.options);
+      // 닉네임 입력 후, 질문 개수 선택 질문으로 전환
+      setCurrentMessage(SPEED_QUESTION.message);
+      setCurrentQuestion(SPEED_QUESTION.question);
+      setCurrentOptions(SPEED_QUESTION.options);
       setGamePhase(GamePhase.SPEED_CHECK);
       setQuestionCount(1);
-      // 닉네임 답변 후 history를 초기화 (속도 질문은 history에 포함하지 않습니다)
       setHistory([]); 
 
     } else if (gamePhase === GamePhase.SPEED_CHECK) {
-      const currentScore = (answer as QuestionOption).score || 0;
-      let newTotalScore = totalScore + currentScore;
-      
-      if (questionCount === 1) { // 첫 번째 속도 질문 답변 후
-        setTotalScore(newTotalScore); // 현재까지의 점수 저장
-        // 두 번째 속도 질문으로 전환
-        setCurrentMessage(SPEED_QUESTION_2.message);
-        setCurrentQuestion(SPEED_QUESTION_2.question);
-        setCurrentOptions(SPEED_QUESTION_2.options);
-        setQuestionCount(2);
-      } else { // 두 번째 속도 질문 답변 후 (초기 API 호출)
-        // 최종 totalScore를 계산하고 handlePreQuestionsComplete를 호출합니다.
-        // 이 함수가 gameState를 INITIAL_LOADING으로 변경하고 API 호출을 스케줄링합니다.
-        const finalScore = totalScore + currentScore;
-        // setTotalScore(finalScore); // This is async, handlePreQuestionsComplete will use stale state
-        handlePreQuestionsComplete(userName, finalScore);
-      }
+      const finalScore = (answer as QuestionOption).score || 5;
+      handlePreQuestionsComplete(userName, finalScore);
     } else if (gamePhase === GamePhase.CONTENT_QUESTIONS) {
       // 🚨 수정: 마지막 질문에 답변하면, 최종 로딩 상태로 전환합니다.
       // 이렇게 하면 ResultScreen으로 넘어가기 전에 FinalLoadingScreen을 표시할 수 있습니다.

@@ -2119,15 +2119,111 @@ const generateMockComments = (tags: string[]): string[] => {
   return comments.sort(() => 0.5 - Math.random()).slice(0, 6);
 };
 
+// 🚨 추가: 다이내믹 질문 리스트 (최대 10개 질문)
+const MOCK_QUESTIONS = [
+  {
+    question: "1단계: 전장(세계관) 선택. 당신의 가슴을 뛰게 하는 무대는 어디인가요?",
+    options: [
+      { text: "현대 배경에 던전/레이드가 열리는 판타지 세계", tags: ["현대", "환상", "도전"] },
+      { text: "칼끝에 매화검이 흩날리는 강호의 무협 세계", tags: ["시대물", "환상", "도전", "무협"] },
+      { text: "마법과 마수가 웅성거리는 서양 정통 판타지 세계", tags: ["환상", "도전", "판타지"] },
+      { text: "복수와 야망이 소용돌이치는 궁중 로맨스 판타지", tags: ["로맨스", "욕망", "복수"] }
+    ]
+  },
+  {
+    question: "2단계: 인격과 능력. 만약 강력한 재능을 얻는다면 당신의 태도는?",
+    options: [
+      { text: "처음부터 적들을 압도하는 천재형 먼치킨", tags: ["도전", "욕망", "먼치킨"] },
+      { text: "밑바닥에서 피눈물 흘리며 성장하는 노력형 주인공", tags: ["도전", "정의", "성장"] },
+      { text: "머리와 권모술수로 판을 뒤흔드는 지략가", tags: ["논리", "욕망", "복수", "전략"] },
+      { text: "동료와의 끈끈한 유대감으로 승리하는 따뜻한 리더", tags: ["감성", "정의", "성장", "드라마"] }
+    ]
+  },
+  {
+    question: "3단계: 위기 대응. 눈앞에 막강한 장벽이 놓여있습니다. 당신의 대응 방식은?",
+    options: [
+      { text: "참지 않는다! 즉시 폭발적인 힘으로 장벽을 부숴버린다", tags: ["도전", "욕망", "사이다"] },
+      { text: "모두를 이끈다! 고난을 동료들과 극복하며 성장한다", tags: ["감성", "정의", "성장", "드라마"] },
+      { text: "기회를 엿본다! 뒤로 물러나 취약점을 분석하고 우회한다", tags: ["개인", "논리", "안정"] },
+      { text: "유쾌하게 넘긴다! 어떻게든 가벼운 분위기로 풀어내려 노력한다", tags: ["유머", "코믹", "치유"] }
+    ]
+  },
+  {
+    question: "4단계: 일상의 평화. 가장 마음에 드는 완벽한 휴식 시간은 어떤 모습인가요?",
+    options: [
+      { text: "동료들과 어울려 맛있는 음식과 술을 즐기는 시끌벅적한 시간", tags: ["집단", "코믹", "유머"] },
+      { text: "아무도 방해하지 않는 조용하고 아늑한 나만의 개인 공간", tags: ["개인", "치유", "안정"] },
+      { text: "새로운 지식을 탐구하거나 다음 전략을 조용히 구상하는 시간", tags: ["논리", "진지", "안정"] },
+      { text: "사랑하는 사람과 함께 미래를 그리며 교감하는 다정한 시간", tags: ["로맨스", "감성"] }
+    ]
+  },
+  {
+    question: "5단계: 동료의 가치. 험난한 여정에서 당신에게 '진정한 동료'란 무엇인가요?",
+    options: [
+      { text: "목숨을 걸고 서로의 등 뒤를 맡길 수 있는 뜨거운 의리", tags: ["집단", "정의", "드라마"] },
+      { text: "철저한 계약과 이익을 바탕으로 움직이는 효율적인 비즈니스", tags: ["개인", "논리", "진지"] },
+      { text: "서로의 부족함을 이해하고 보듬어 주는 평화로운 안식처", tags: ["감성", "성장", "치유"] },
+      { text: "배신은 꿈도 못 꾸게 만드는 단단한 상호 보장", tags: ["논리", "안정", "긴장"] }
+    ]
+  },
+  {
+    question: "6단계: 어둠과의 조우. 어둠의 세력이 은밀한 계약을 제안한다면 당신은?",
+    options: [
+      { text: "절대 타협 불가! 세상을 더럽히는 악을 단죄한다", tags: ["정의", "진지", "도전"] },
+      { text: "힘만 영리하게 뺏어서 내 목표를 위한 도구로 역이용한다", tags: ["욕망", "논리", "긴장"] },
+      { text: "조건이 합리적이고 피해가 크지 않다면 거래를 수락한다", tags: ["욕망", "현실", "진지"] },
+      { text: "성가신 일에 휘말리지 않게 가벼운 장난이나 침묵으로 회피한다", tags: ["코믹", "유머"] }
+    ]
+  },
+  {
+    question: "7단계: 이상과 현실. 세상을 바꿀 강력한 힘이 생겼을 때의 최종 목적지는?",
+    options: [
+      { text: "불평등과 불의를 걷어내고 완전한 이상 국가 실현", tags: ["정의", "감성", "드라마"] },
+      { text: "나와 주변 사람들의 확실하고 평화로운 현실적인 번영", tags: ["현실", "논리", "안정"] },
+      { text: "누구에게도 얽매이지 않고 자유롭게 살아가는 독자적 길", tags: ["개인", "치유", "안정"] },
+      { text: "이 낡아 빠진 시스템을 아예 무너뜨리고 새로운 혼돈 창조", tags: ["욕망", "긴장", "도전"] }
+    ]
+  },
+  {
+    question: "8단계: 타인의 아픔. 주변 누군가가 깊은 슬픔에 빠져 울고 있을 때 당신의 내면 반응은?",
+    options: [
+      { text: "그 마음이 고스란히 느껴져 함께 슬퍼하며 보듬는다", tags: ["감성", "드라마", "치유"] },
+      { text: "원인을 정확히 파악하여 실질적으로 해결할 방안을 모색한다", tags: ["논리", "현실", "진지"] },
+      { text: "너무 무거운 분위기에서 벗어나고자 가벼운 위트와 유머를 띄운다", tags: ["유머", "코믹"] },
+      { text: "인간의 삶이란 원래 고독하고 험난한 것이라고 현실을 받아들인다", tags: ["현실", "진지", "안정"] }
+    ]
+  },
+  {
+    question: "9단계: 관계의 미학. 인생에서 타인과 관계를 맺을 때 가장 크게 닿는 핵심은?",
+    options: [
+      { text: "심장을 뛰게 만드는 강렬하고 로맨틱한 눈빛과 설렘", tags: ["로맨스", "감성"] },
+      { text: "서로에게 간섭하지 않는 쿨하고 독립적인 우정", tags: ["비로맨스", "개인", "안정"] },
+      { text: "서로의 한계를 시험하며 끊임없이 자극을 주는 라이벌 의식", tags: ["비로맨스", "도전", "성장"] },
+      { text: "말하지 않아도 혈육처럼 끈끈하게 느껴지는 깊은 가족애", tags: ["감성", "드라마", "치유"] }
+    ]
+  },
+  {
+    question: "10단계: 최후의 결의. 마지막 문을 열기 전, 당신의 마음가짐은 무엇인가요?",
+    options: [
+      { text: "무엇이 도사리고 있든 오직 전진하여 승리하겠다!", tags: ["도전", "욕망", "진지"] },
+      { text: "아무도 잃지 않고, 모두 함께 웃으며 무사히 돌아가겠다!", tags: ["정의", "감성", "드라마"] },
+      { text: "결과는 어찌 되든 바람이 부는 대로 유유히 받아들이겠다", tags: ["안정", "치유", "개인"] },
+      { text: "긴장할 것 없다! 재미있는 축제를 즐기듯 즐겨보자!", tags: ["유머", "코믹", "도전"] }
+    ]
+  }
+];
+
 let mockStep = 0;
 let userNickname = "모험가";
 let activeCandidates: Webtoon[] = [];
 let sessionTags: string[] = [];
+let targetQuestionCount = 5;
 
 export const resetMockSession = () => {
   mockStep = 0;
   activeCandidates = [...MOCK_WEBTOONS];
   sessionTags = [];
+  targetQuestionCount = 5;
 };
 
 export const handleMockRecommend = (payload: { sessionId: string | null; message: string | object }): GeminiServiceResponse => {
@@ -2137,34 +2233,28 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
     try {
       const parsed = JSON.parse(payload.message as string);
       userNickname = parsed.nickname || "모험가";
+      targetQuestionCount = parsed.totalScore || 5;
     } catch (e) {
       userNickname = "모험가";
+      targetQuestionCount = 5;
     }
 
     mockStep = 1;
+    const R = targetQuestionCount === 5 ? 0.35 : targetQuestionCount === 7 ? 0.26 : 0.19;
 
     // Generate comments for Question 1 options to display during Q1 -> Q2 transition
-    const q1OptionTags = ["현대", "환상", "도전", "시대물", "무협", "판타지", "로맨스", "욕망", "복수"];
-    const q1Comments = generateMockComments(q1OptionTags);
+    const q1Comments = generateMockComments(["현대", "환상", "도전", "시대물", "무협", "판타지", "로맨스"]);
 
     return {
       sessionId: "mock-session-id",
       isFinal: false,
       message: `🌌 [성좌, '운명의 기록자'가 눈을 번뜩이며 ${userNickname}님을 환영합니다.] 당신의 취향 영혼이 탐색의 문을 열었습니다. 성좌들이 당신을 관전하기 위해 은하계 극장에 입장했습니다!`,
-      filterRate: 0.8,
+      filterRate: R,
       newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: Math.floor(activeCandidates.length * 0.6), // predicted next count (approx 39)
-      isLastQuestion: false,
+      nextCandidateCount: Math.floor(activeCandidates.length * (1 - R)),
+      isLastQuestion: targetQuestionCount === 1,
       comments: q1Comments,
-      nextQuestion: {
-        question: "1단계: 전장(세계관) 선택. 당신의 가슴을 뛰게 하는 무대는 어디인가요?",
-        options: [
-          { text: "현대 배경에 던전/레이드가 열리는 판타지 세계", tags: ["현대", "환상", "도전"] },
-          { text: "칼끝에 매화검이 흩날리는 강호의 무협 세계", tags: ["시대물", "환상", "도전", "무협"] },
-          { text: "마법과 마수가 웅성거리는 서양 정통 판타지 세계", tags: ["환상", "도전", "판타지"] },
-          { text: "복수와 야망이 소용돌이치는 궁중 로맨스 판타지", tags: ["로맨스", "욕망", "복수"] }
-        ]
-      }
+      nextQuestion: MOCK_QUESTIONS[0]
     };
   }
 
@@ -2191,65 +2281,44 @@ export const handleMockRecommend = (payload: { sessionId: string | null; message
   const scored = activeCandidates.map(w => ({ webtoon: w, score: scoreCandidate(w) }));
   scored.sort((a, b) => b.score - a.score);
 
-  if (mockStep === 2) {
-    // Keep top 60% of candidates (approx 39 webtoons)
-    const keepCount = Math.max(15, Math.floor(scored.length * 0.6));
+  const R = targetQuestionCount === 5 ? 0.35 : targetQuestionCount === 7 ? 0.26 : 0.19;
+
+  // 만약 현재 단계가 최종 질문 수 이하인 경우 (즉, 다음 질문을 주어야 하는 경우)
+  if (mockStep <= targetQuestionCount) {
+    let keepCount = 0;
+    if (mockStep === targetQuestionCount) {
+      keepCount = 9; // 최종 후보 직전 단계 (8~9개 남겨서 마지막 질문 후 1개로 줄이도록 함)
+    } else {
+      keepCount = Math.max(9, Math.floor(scored.length * (1 - R)));
+    }
+    
+    if (keepCount > scored.length) {
+      keepCount = scored.length;
+    }
+    
     activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
 
-    // Generate comments for Question 2 options to display during Q2 -> Q3 transition
-    const q2OptionTags = ["도전", "욕망", "먼치킨", "정의", "성장", "논리", "전략", "감성", "드라마"];
-    const q2Comments = generateMockComments(q2OptionTags);
+    // 다음 질문을 위한 코멘트 생성
+    const nextQuestionObj = MOCK_QUESTIONS[mockStep - 1] || MOCK_QUESTIONS[MOCK_QUESTIONS.length - 1];
+    const optionTags = nextQuestionObj.options.flatMap(opt => opt.tags || []);
+    const comments = generateMockComments(optionTags);
 
+    const isLast = (mockStep === targetQuestionCount);
+    
     return {
       sessionId: "mock-session-id",
       isFinal: false,
       message: `💬 [성좌, '비밀을 탐하는 감시자'가 흥미로운 코멘트를 던집니다: "${currentAnswer}"이라니... 꽤나 모험심 넘치는 길을 선택했군!]`,
-      filterRate: 0.5,
+      filterRate: R,
       newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: Math.floor(activeCandidates.length * 0.4), // predicted next count (approx 15)
-      isLastQuestion: false,
-      comments: q2Comments,
-      nextQuestion: {
-        question: "2단계: 인격과 능력. 만약 강력한 재능을 얻는다면 당신의 태도는?",
-        options: [
-          { text: "처음부터 적들을 압도하는 천재형 먼치킨", tags: ["도전", "욕망", "먼치킨"] },
-          { text: "밑바닥에서 피눈물 흘리며 성장하는 노력형 주인공", tags: ["도전", "정의", "성장"] },
-          { text: "머리와 권모술수로 판을 뒤흔드는 지략가", tags: ["논리", "욕망", "복수", "전략"] },
-          { text: "동료와의 끈끈한 유대감으로 승리하는 따뜻한 리더", tags: ["감성", "정의", "성장", "드라마"] }
-        ]
-      }
+      nextCandidateCount: isLast ? 1 : Math.max(9, Math.floor(activeCandidates.length * (1 - R))),
+      isLastQuestion: isLast,
+      comments: comments,
+      nextQuestion: nextQuestionObj
     };
   }
 
-  if (mockStep === 3) {
-    // Keep top 40% of candidates (approx 15 webtoons)
-    const keepCount = Math.max(6, Math.floor(scored.length * 0.4));
-    activeCandidates = scored.slice(0, keepCount).map(s => s.webtoon);
-
-    // Generate comments for Question 3 options to display during Q3 -> Final transition
-    const q3OptionTags = ["도전", "욕망", "사이다", "감성", "정의", "성장", "드라마"];
-    const q3Comments = generateMockComments(q3OptionTags);
-
-    return {
-      sessionId: "mock-session-id",
-      isFinal: false,
-      message: `🔮 [성좌, '심연의 지배자'가 굵직한 음성으로 웅얼거립니다: "네 영혼의 빛깔이 "${currentAnswer}" 방향으로 요동치는구나..."]`,
-      filterRate: 0.2,
-      newCandidateIds: activeCandidates.map(w => w.id),
-      nextCandidateCount: 1, // Final target candidate count!
-      isLastQuestion: true,
-      comments: q3Comments,
-      nextQuestion: {
-        question: "최종 단계: 위기 대응. 눈앞에 막강한 장벽이 놓여있습니다. 당신의 대응 방식은?",
-        options: [
-          { text: "참지 않는다! 즉시 폭발적인 힘으로 장벽을 부숴버린다 (사이다 피드백)", tags: ["도전", "욕망", "사이다"] },
-          { text: "모두를 이끈다! 고난을 동료들과 극복하며 성장한다 (성장 감동)", tags: ["감성", "정의", "성장", "드라마"] }
-        ]
-      }
-    };
-  }
-
-  // Final step
+  // 최종 매칭 결과 반환 (mockStep > targetQuestionCount)
   const recommended = scored[0].webtoon;
 
   // Determine user traits based on accumulated sessionTags
