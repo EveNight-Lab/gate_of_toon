@@ -370,7 +370,7 @@ try {
 
   return {
     gameState, gamePhase, error, isLoading, allWebtoons, candidateIds, userName,
-    currentMessage, currentQuestion, currentOptions, questionCount, isFinalQuestion, // @ts-ignore
+    currentMessage, currentQuestion, currentOptions, questionCount, isFinalQuestion,
     finalResult, recommendationText, feedback, infoContent,
     handleStart, handleAnswer, handleRestart, handleShowList, handleShowInfo, nextCount, handlePreQuestionsComplete
   };

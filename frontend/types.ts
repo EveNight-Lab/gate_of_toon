@@ -3,6 +3,7 @@ export interface Webtoon {
   title: string;
   author: string;
   tags: string[];
+  standardTags?: string[]; // 🚨 추가: 백엔드 스키마와 동일하게 standardTags 필드 지원
   summary: string;
   url: string;
   lifeCount: number;

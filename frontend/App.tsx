@@ -54,7 +54,7 @@ function App() {
         if (gamePhase === GamePhase.NICKNAME) {
           return <NicknameInput
                     question={currentQuestion}
-                    message={currentMessage} // @ts-ignore
+                    message={currentMessage}
                     onSubmit={(nickname) => handleAnswer(nickname)}
                     isLoading={isLoading}
                   />;
@@ -68,7 +68,7 @@ function App() {
                     message={currentMessage}
                     question={currentQuestion}
                     options={currentOptions}
-                    onAnswer={(option) => handleAnswer(option)} // @ts-ignore
+                    onAnswer={(option) => handleAnswer(option)}
                     questionCount={questionCount}
                     totalQuestions={MAX_QUESTIONS}
                     totalWebtoons={allWebtoons.length}
@@ -88,7 +88,7 @@ function App() {
             userName={userName}
             webtoon={finalResult!}
             recommendationText={recommendationText}
-            onRestart={handleRestart} // @ts-ignore
+            onRestart={handleRestart}
             onShowList={handleShowList}
           />
         );
