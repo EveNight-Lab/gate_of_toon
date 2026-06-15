@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "gate-of-toon"
-  }
+    "default": "evenight-cloud"
+  },
+  "targets": {
+    "evenight-cloud": {
+      "hosting": {
+        "got-site": [
+          "evenight-got"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
