@@ -12,11 +12,16 @@ import DynamicBackground from './components/DynamicBackground';
 import { useParallax } from './hooks/useParallax';
 import { useGameLogic } from './hooks/useGameLogic';
 import NicknameInput from './NicknameInput';
+import { trackVisitor } from './services/visitorTracker';
 
 const MAX_QUESTIONS = 5;
 
 function App() {
   // 프리렌더 콘텐츠는 z-index로 이미 뒤에 숨겨져 있으므로 별도 처리 불필요
+
+  useEffect(() => {
+    void trackVisitor();
+  }, []);
 
   const { coordsRef, requestPermission, permissionState, calibrate } = useParallax();
   const {
