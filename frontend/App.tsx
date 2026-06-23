@@ -122,10 +122,21 @@ function App() {
         </div>
       </div>
       {/* 🚨 추가: 제작자 정보 푸터 */}
-      <footer className="absolute bottom-4 text-center text-xs">
+      <footer className="absolute bottom-4 text-center text-xs flex flex-col items-center gap-1">
         <p className="text-transparent bg-clip-text bg-gradient-to-r from-red-800 via-purple-600 to-purple-800 font-bold">
-          제작자: 돌블 (dolveul) | dorubru0331@gmail.com
+          제작자: 김저녁 (evenight) | evenight331@gmail.com
         </p>
+        <a 
+          href="https://lab.evenight.dev" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-1 font-semibold"
+        >
+          <svg className="w-3.5 h-3.5 text-slate-400 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+          <span>Evenight Lab 소속 프로젝트</span>
+        </a>
       </footer>
     </div>
   );
