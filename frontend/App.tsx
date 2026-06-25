@@ -127,7 +127,7 @@ function App() {
           제작자: 김저녁 (evenight) | evenight331@gmail.com
         </p>
         <a 
-          href="https://lab.evenight.dev" 
+          href="https://evenight.net" 
           target="_blank" 
           rel="noopener noreferrer" 
           className="text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-1 font-semibold"
